@@ -68,9 +68,8 @@ function Sidebar({ isOpen, toggleSidebar }) {
     };
   };
 
-  // Добавление нового пункта (без отправки запроса сразу)
+  // Добавление нового пункта (без отправки запроса сразу, сервер генерирует id)
   const addItem = async () => {
-    // Создаём новый пункт без id – сервер должен его сгенерировать
     const newItem = {
       label: '',
       order: menuItems.length,
@@ -123,7 +122,7 @@ function Sidebar({ isOpen, toggleSidebar }) {
         <>
           <div className="sidebar-header">
             <button onClick={toggleEditMode} className="edit-button">
-              {editMode ? 'Готово' : 'Редактировать'}
+              {editMode ? 'Готово' : '✎'}
             </button>
           </div>
           <div className="menu">
