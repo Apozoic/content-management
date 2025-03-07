@@ -11,6 +11,12 @@
       "label": "1",
       "order": 0,
       "editable": false
+    },
+    {
+      "id": "05f3",
+      "label": "5",
+      "order": 2,
+      "editable": true
     }
   ]
 }

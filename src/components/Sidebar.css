@@ -144,3 +144,28 @@
   padding: 8px 0;
   font-size: 16px;
 }
+
+.display-menu {
+  padding: 5px;
+}
+
+.display-item-button {
+  display: block;
+  width: 100%;
+  background: none;
+  border: none;
+  text-align: left;
+  font-size: 16px;
+  color: #fff;
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.display-item-button:hover {
+  background-color: #444;
+}
+
+.display-item-button.active {
+  background-color: #555;
+}

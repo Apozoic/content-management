@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 import './Sidebar.css';
 
-function Sidebar({ isOpen, toggleSidebar }) {
+function Sidebar({ isOpen, toggleSidebar, activeTab, setActiveTab }) {
   const [menuItems, setMenuItems] = useState([]);
   const [editMode, setEditMode] = useState(false);
 
@@ -11,7 +11,6 @@ function Sidebar({ isOpen, toggleSidebar }) {
     fetch('http://localhost:3001/menuItems')
       .then((res) => res.json())
       .then((data) => {
-        // сортируем по order (если его нет, сортируем по id)
         const sorted = data.sort((a, b) => {
           const orderA = a.order !== undefined ? a.order : a.id;
           const orderB = b.order !== undefined ? b.order : b.id;
@@ -22,12 +21,11 @@ function Sidebar({ isOpen, toggleSidebar }) {
       .catch((err) => console.error('Ошибка загрузки меню:', err));
   }, []);
 
-  // Финализировать все изменения – для каждого пункта отправляем PATCH-запрос
+  // Финализировать изменения – для каждого пункта отправляем PATCH-запрос
   const finalizeEdits = async () => {
     try {
       await Promise.all(
         menuItems.map(async (item) => {
-          // Отправляем PATCH для обновления label, order и editable
           return fetch(`http://localhost:3001/menuItems/${item.id}`, {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
@@ -40,7 +38,7 @@ function Sidebar({ isOpen, toggleSidebar }) {
     }
   };
 
-  // Drag and drop: меняем порядок элементов в состоянии
+  // Обработчик drag-and-drop для изменения порядка
   const handleDragEnd = (result) => {
     if (!result.destination) return;
     const sourceIndex = result.source.index;
@@ -50,32 +48,28 @@ function Sidebar({ isOpen, toggleSidebar }) {
     const updated = [...menuItems];
     const [removed] = updated.splice(sourceIndex, 1);
     updated.splice(destinationIndex, 0, removed);
-    // Обновляем порядок (order) на основе нового индекса
+    // Обновляем порядок на основе нового индекса
     const withOrder = updated.map((item, index) => ({ ...item, order: index }));
     setMenuItems(withOrder);
   };
 
-  // Удаление пункта (только если editable true)
-  const removeItem = () => {
-    // id передаётся при вызове из кнопки удаления
-    return async (id) => {
-      try {
-        await fetch(`http://localhost:3001/menuItems/${id}`, { method: 'DELETE' });
-        setMenuItems((items) => items.filter((item) => item.id !== id));
-      } catch (error) {
-        console.error('Ошибка удаления пункта:', error);
-      }
-    };
+  // Удаление пункта (только если editable === true)
+  const removeItem = async (id) => {
+    try {
+      await fetch(`http://localhost:3001/menuItems/${id}`, { method: 'DELETE' });
+      setMenuItems((items) => items.filter((item) => item.id !== id));
+    } catch (error) {
+      console.error('Ошибка удаления пункта:', error);
+    }
   };
 
-  // Добавление нового пункта (без отправки запроса сразу, сервер генерирует id)
+  // Добавление нового пункта – сервер генерирует id (новые пункты editable по умолчанию)
   const addItem = async () => {
     const newItem = {
       label: '',
       order: menuItems.length,
       editable: true,
     };
-    
     try {
       const response = await fetch('http://localhost:3001/menuItems', {
         method: 'POST',
@@ -83,7 +77,6 @@ function Sidebar({ isOpen, toggleSidebar }) {
         body: JSON.stringify(newItem)
       });
       const addedItem = await response.json();
-      // Обновляем локальное состояние, используя объект, возвращённый сервером (с id)
       setMenuItems((items) => [...items, addedItem]);
     } catch (error) {
       console.error('Ошибка добавления пункта:', error);
@@ -100,11 +93,10 @@ function Sidebar({ isOpen, toggleSidebar }) {
     );
   };
 
-  // Переключение режима редактирования
-  // При выходе (нажатии "Готово") вызываем finalizeEdits
+  // Переключение режима редактирования.
+  // При выходе (нажатии "Готово") финализируем изменения.
   const toggleEditMode = async () => {
     if (editMode) {
-      // принудительно размываем, чтобы завершить ввод
       if (document.activeElement && document.activeElement.tagName === 'INPUT') {
         document.activeElement.blur();
       }
@@ -115,93 +107,97 @@ function Sidebar({ isOpen, toggleSidebar }) {
 
   return (
     <div className={`sidebar ${isOpen ? 'open' : 'closed'}`}>
+      {/* Кнопка переключения внутри сайдбара (можно оставить, если требуется) */}
       <button onClick={toggleSidebar} className="toggle-button">
         {isOpen ? '<' : '>'}
       </button>
-      {isOpen && (
-        <>
-          <div className="sidebar-header">
-            <button onClick={toggleEditMode} className="edit-button">
-              {editMode ? 'Готово' : '✎'}
-            </button>
-          </div>
-          <div className="menu">
-            {editMode ? (
-              <DragDropContext onDragEnd={handleDragEnd}>
-                <Droppable droppableId="menu">
-                  {(provided) => (
-                    <ul
-                      ref={provided.innerRef}
-                      {...provided.droppableProps}
-                      className="menu-list"
+      <div className="sidebar-header">
+        <button onClick={toggleEditMode} className="edit-button">
+          {editMode ? 'Готово' : '✎'}
+        </button>
+      </div>
+
+      <div className="menu">
+        {editMode ? (
+          // Режим редактирования: используем drag-and-drop + input
+          <DragDropContext onDragEnd={handleDragEnd}>
+            <Droppable droppableId="menu">
+              {(provided) => (
+                <ul
+                  ref={provided.innerRef}
+                  {...provided.droppableProps}
+                  className="menu-list"
+                >
+                  {menuItems.map((item, index) => (
+                    <Draggable
+                      draggableId={item.id.toString()}
+                      key={item.id}
+                      index={index}
                     >
-                      {menuItems.map((item, index) => (
-                        <Draggable
-                          draggableId={item.id.toString()}
-                          key={item.id}
-                          index={index}
+                      {(provided) => (
+                        <li
+                          ref={provided.innerRef}
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                          className="menu-item"
                         >
-                          {(provided) => (
-                            <li
-                              ref={provided.innerRef}
-                              {...provided.draggableProps}
-                              {...provided.dragHandleProps}
-                              className="menu-item"
-                            >
-                              <span className="drag-handle">☰</span>
-                              {item.editable ? (
-                                <input
-                                  type="text"
-                                  value={item.label}
-                                  onChange={(e) => handleInputChange(item.id, e)}
-                                  onKeyDown={(e) => {
-                                    if (e.key === 'Enter') e.target.blur();
-                                  }}
-                                  autoFocus={item.label === ''}
-                                  className="menu-input"
-                                />
-                              ) : (
-                                <input
-                                  type="text"
-                                  value={item.label}
-                                  disabled
-                                  className="menu-input read-only"
-                                />
-                              )}
-                              {item.editable && (
-                                <button
-                                  onClick={() => removeItem()(item.id)}
-                                  className="remove-button"
-                                >
-                                  &minus;
-                                </button>
-                              )}
-                            </li>
+                          <span className="drag-handle">☰</span>
+                          {item.editable ? (
+                            <input
+                              type="text"
+                              value={item.label}
+                              onChange={(e) => handleInputChange(item.id, e)}
+                              onKeyDown={(e) => {
+                                if (e.key === 'Enter') e.target.blur();
+                              }}
+                              autoFocus={item.label === ''}
+                              className="menu-input"
+                            />
+                          ) : (
+                            <input
+                              type="text"
+                              value={item.label}
+                              disabled
+                              className="menu-input read-only"
+                            />
                           )}
-                        </Draggable>
-                      ))}
-                      {provided.placeholder}
-                      <li className="add-item">
-                        <button onClick={addItem} className="add-button">
-                          +
-                        </button>
-                      </li>
-                    </ul>
-                  )}
-                </Droppable>
-              </DragDropContext>
-            ) : (
-              <div className="display-menu">
-                {menuItems.map((item) => (
-                  <div key={item.id} className="display-item">
-                    {item.label}
-                  </div>
-                ))}
-              </div>
-            )}
+                          {item.editable && (
+                            <button
+                              onClick={() => removeItem(item.id)}
+                              className="remove-button"
+                            >
+                              &minus;
+                            </button>
+                          )}
+                        </li>
+                      )}
+                    </Draggable>
+                  ))}
+                  {provided.placeholder}
+                  <li className="add-item">
+                    <button onClick={addItem} className="add-button">
+                      +
+                    </button>
+                  </li>
+                </ul>
+              )}
+            </Droppable>
+          </DragDropContext>
+        ) : (
+          // Режим просмотра: показываем пункты как кнопки на всю ширину
+          <div className="display-menu">
+            {menuItems.map((item) => (
+              <button 
+                key={item.id}
+                className={`display-item-button ${activeTab === item.id ? 'active' : ''}`}
+                onClick={() => setActiveTab(item.id)}
+              >
+                {item.label || "Новая вкладка"}
+              </button>
+            ))}
           </div>
-        </>
-      )}
+        )}
+      </div>
     </div>
   );
 }

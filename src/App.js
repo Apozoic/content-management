@@ -4,30 +4,37 @@ import './App.css';
 
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [editMode, setEditMode] = useState(false);
+  const [activeTab, setActiveTab] = useState(null);
+  const [editorContent, setEditorContent] = useState(""); // содержимое текстового редактора
 
   const toggleSidebar = () => {
-    setIsSidebarOpen((prevState) => !prevState);
-  };
-
-  const toggleEditMode = () => {
-    setEditMode((prevState) => !prevState);
+    setIsSidebarOpen(prev => !prev);
   };
 
   return (
     <div className={`App ${isSidebarOpen ? 'sidebar-open' : ''}`}>
-      {/* Sidebar component */}
-      <Sidebar isOpen={isSidebarOpen} editMode={editMode} toggleEditMode={toggleEditMode} />
-
-      {/* Toggle button located outside the sidebar */}
-      <button className="toggle-button" onClick={toggleSidebar}>
-        {isSidebarOpen ? '<' : '>'}
-      </button>
-
-      {/* Main content */}
+      <Sidebar 
+        isOpen={isSidebarOpen} 
+        toggleSidebar={toggleSidebar} 
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+      />
       <div className="content">
-        <h1>Добро пожаловать!</h1>
-        <p>Здесь находится основное содержимое страницы.</p>
+        {activeTab ? (
+          <div>
+            <h2>Текстовый редактор для вкладки {activeTab}</h2>
+            <textarea 
+              value={editorContent}
+              onChange={(e)=> setEditorContent(e.target.value)}
+              style={{width:"100%", height:"400px"}}
+            />
+          </div>
+        ) : (
+          <div>
+            <h1>Добро пожаловать!</h1>
+            <p>Выберите вкладку для редактирования.</p>
+          </div>
+        )}
       </div>
     </div>
   );
