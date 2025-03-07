@@ -3,13 +3,13 @@
   font-family: Arial, sans-serif;
 }
 
-/* Отступ для контента зависит от состояния сайдбара */
 .content {
-  margin-left: 40px; /* по умолчанию – когда сайдбар свернут */
+  margin-left: 40px; /* отступ для свернутого сайдбара */
   padding: 20px;
   transition: margin-left 0.3s ease;
 }
 
+/* Когда у контейнера App присутствует класс sidebar-open, сдвигаем контент вправо */
 .sidebar-open .content {
   margin-left: 250px;
 }
