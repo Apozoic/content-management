@@ -1,4 +1,4 @@
-/* components/Sidebar.css */
+/* Основной контейнер сайдбара */
 .sidebar {
   position: fixed;
   top: 0;
@@ -11,18 +11,16 @@
   box-sizing: border-box;
 }
 
-/* Сайдбар в открытом состоянии: ширина 250px */
 .sidebar.open {
   width: 250px;
   padding: 10px;
 }
 
-/* Сайдбар в закрытом состоянии: видна только полоса 40px */
 .sidebar.closed {
   width: 40px;
 }
 
-/* Кнопка-стрелочка для переключения сайдбара */
+/* Кнопка переключения сайдбара */
 .toggle-button {
   background-color: #444;
   border: none;
@@ -36,7 +34,7 @@
   border-radius: 0 5px 5px 0;
 }
 
-/* Заголовок сайдбара (с отступом сверху) */
+/* Заголовок сайдбара */
 .sidebar-header {
   margin-top: 50px;
   margin-bottom: 10px;
@@ -50,25 +48,41 @@
   padding: 5px 10px;
   cursor: pointer;
   font-size: 14px;
+  margin-bottom: 10px;
 }
 
-/* Стили для меню */
-.menu ul {
+/* Стили списка редактирования */
+.menu-list {
   list-style: none;
   padding: 0;
 }
 
-.menu ul li {
-  position: relative;
+.menu-item {
+  display: flex;
+  align-items: center;
   padding: 8px 0;
 }
 
-.menu ul li a {
-  color: #fff;
-  text-decoration: none;
+.drag-handle {
+  margin-right: 8px;
+  cursor: grab;
+  font-size: 18px;
 }
 
-/* Кнопка удаления пункта (значок минуса) */
+.menu-input {
+  font-size: 16px;
+  padding: 2px 4px;
+  width: 65%;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.read-only {
+  background-color: #eee;
+  color: #555;
+}
+
 .remove-button {
   background-color: transparent;
   border: none;
@@ -78,12 +92,10 @@
   margin-left: 10px;
 }
 
-/* Блок для кнопки добавления пункта */
 .add-item {
   margin-top: 10px;
 }
 
-/* Кнопка добавления нового пункта (значок плюса) */
 .add-button {
   background-color: #4CAF50;
   border: none;
@@ -92,4 +104,14 @@
   font-size: 16px;
   cursor: pointer;
   border-radius: 5px;
+}
+
+/* Режим просмотра – просто текст */
+.display-menu {
+  padding: 5px;
+}
+
+.display-item {
+  padding: 8px 0;
+  font-size: 16px;
 }
