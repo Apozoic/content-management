@@ -1,0 +1,122 @@
+/* General Table Container */
+.modern-table-container {
+    width: 600px; /* Limit table width */
+    margin-left: 0; /* Align the table to the left side */
+  }
+  
+  /* Table */
+  .modern-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    border-spacing: 0; /* Remove unnecessary gaps */
+    table-layout: auto; /* Allow columns to resize naturally */
+  }
+  
+  /* Row Styling */
+  .modern-row {
+   
+    border-bottom: 1px solid #e0e0e0; /* Subtle divider between rows */
+    transition: all 0.2s ease;
+  }
+  
+  .modern-row:last-child {
+    border-bottom: none; /* No border for the last row */
+  }
+  
+  .modern-row:hover {
+    background-color: #f8f9fb; /* Slightly brighter background on hover */
+  }
+  
+  /* Columns */
+  .icon-cell {
+    width: 2%; /* Smaller width for icon column */
+    text-align: right;
+    font-size: 18px;
+    color: #007bff; /* Icon color */
+  }
+  
+  .label-cell {
+    width: 20%;
+    font-weight: 600;
+    color: #333;
+    padding-left: 20px;
+    padding-right: 40px;
+  }
+  
+  .divider {
+    width: 0.2%; /* Adjust width for the divider */
+    background-color: #ccc;
+  }
+  
+  .value-cell {
+    width: 70%;
+    text-align: left;
+    padding-left: 20px;
+    color: #555;
+  }
+  
+  /* Custom Input */
+  .custom-input {
+    width: calc(100% - 20px); /* Extend input width */
+    padding: 10px 15px; /* Larger padding for better readability */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+  }
+  
+  .custom-input:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
+  }
+  
+  /* Dropdown Styling */
+  .custom-dropdown-container {
+    position: relative;
+    width: 100%;
+  }
+  
+  .dropdown-selected {
+    padding: 10px 15px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .dropdown-options {
+    position: absolute;
+    top: calc(100% + 5px);
+    left: 0;
+    right: 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .dropdown-option {
+    padding: 10px;
+    cursor: pointer;
+    text-align: left;
+  }
+  
+  .dropdown-option:hover {
+    background-color: #f5f5f5;
+  }
+  
+  /* Link Styling */
+  .site-link {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .site-link:hover {
+    text-decoration: underline;
+  }
+  

@@ -1,59 +1,18 @@
-/* App.css */
-
 /* Main container for the app */
 .App {
   display: flex;
   position: relative;
 }
 
-/* Sidebar styles */
-.sidebar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100%;
-  background-color: #333;
-  color: #fff;
-  transition: width 0.3s ease;
-  overflow: hidden;
-}
-
-.sidebar.open {
-  width: 250px;
-}
-
-.sidebar.closed {
-  width: 40px;
-}
-
-/* Toggle button positioned outside the sidebar */
-.toggle-button {
-  position: fixed;
-  top: 10px;
-  left: 250px; /* Adjust dynamically based on sidebar width */
-  background-color: #444;
-  border: none;
-  color: #fff;
-  padding: 5px 10px;
-  font-size: 16px;
-  cursor: pointer;
-  border-radius: 0 5px 5px 0;
-  z-index: 100;
-  transition: left 0.3s ease; /* Smooth movement based on sidebar state */
-}
-
-.App.sidebar-open .toggle-button {
-  left: 250px; /* Sidebar open position */
-}
-
-.App .toggle-button {
-  left: 40px; /* Sidebar closed position */
-}
+/* Sidebar стили задаются в Sidebar.css (подключаются туда) */
 
 /* Main content section */
 .content {
-  margin-left: 250px; /* Adjust dynamically for open sidebar */
+  margin-left: 250px; /* Adjust for open sidebar */
+  padding: 80px;      /* Отступы сверху и по бокам */
+  box-sizing: border-box;
   transition: margin-left 0.3s ease;
+  width: 80%;
 }
 
 .App.sidebar-open .content {
@@ -61,5 +20,5 @@
 }
 
 .App .content {
-  margin-left: 40px; /* Adjust for closed sidebar */
+  margin-left: 40px; /* для закрытого сайдбара */
 }

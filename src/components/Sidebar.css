@@ -1,5 +1,3 @@
-/* Sidebar.css */
-
 /* Основной контейнер сайдбара */
 .sidebar {
   position: fixed;
@@ -22,29 +20,29 @@
   width: 40px; /* Ширина закрытого сайдбара */
 }
 
-/* Кнопка стрелки (торчит за правой границей сайдбара) */
+/* Кнопка стрелки (находится внутри для редактирования, но можно убрать, если она теперь в App.js) */
 .toggle-button {
   position: absolute;
   top: 10px;
-  left: 100%; /* Привязываем к правой границе сайдбара */
+  left: 100%; /* Привязана к правой границе сайдбара */
   background-color: #444;
   border: none;
   color: #fff;
   padding: 5px 10px;
   font-size: 16px;
   cursor: pointer;
-  border-radius: 0 5px 5px 0; /* Скругляем правую часть кнопки */
-  z-index: 100; /* Обеспечиваем отображение поверх других элементов */
+  border-radius: 0 5px 5px 0;
+  z-index: 100;
   transition: background-color 0.3s ease;
 }
 
 .toggle-button:hover {
-  background-color: #555; /* Фон при наведении */
+  background-color: #555;
 }
 
 /* Кнопка редактирования (иконка карандаша) */
 .edit-button {
-  position: relative; /* Расположение внутри сайдбара */
+  position: relative;
   margin-bottom: 15px;
   background-color: #555;
   border: none;
@@ -67,7 +65,7 @@
 .menu-list {
   list-style: none;
   padding: 0;
-  margin-top: 15px; /* Отступ сверху для списка меню */
+  margin-top: 15px;
 }
 
 .menu-item {
@@ -119,32 +117,7 @@
   border-radius: 5px;
 }
 
-/* Контент с отступами */
-.content {
-  margin-left: 250px; /* Отступ слева (ширина сайдбара) */
-  padding: 20px; /* Отступы сверху и по бокам */
-  box-sizing: border-box;
-  transition: margin-left 0.3s ease; /* Плавное изменение при открытии сайдбара */
-}
-
-.App.sidebar-open .content {
-  margin-left: 250px;
-}
-
-.App .content {
-  margin-left: 40px; /* Сдвиг при закрытом сайдбаре */
-}
-
-/* Текстовые элементы в режиме просмотра */
-.display-menu {
-  padding: 5px;
-}
-
-.display-item {
-  padding: 8px 0;
-  font-size: 16px;
-}
-
+/* Стили режима просмотра вкладок */
 .display-menu {
   padding: 5px;
 }

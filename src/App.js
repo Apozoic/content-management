@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
+import { Routes, Route } from 'react-router-dom';
 import Sidebar from './components/Sidebar';
+import EditablePage from './pages/EditablePage';
+import NonEditablePage from './pages/NonEditablePage';
 import './App.css';
+import GeneralInfoPage from './pages/GeneralInfoPage';
 
 function App() {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  // Можно хранить состояние открытого сайдбара и выбранной вкладки
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [activeTab, setActiveTab] = useState(null);
-  const [editorContent, setEditorContent] = useState(""); // содержимое текстового редактора
 
   const toggleSidebar = () => {
     setIsSidebarOpen(prev => !prev);
@@ -16,25 +20,16 @@ function App() {
       <Sidebar 
         isOpen={isSidebarOpen} 
         toggleSidebar={toggleSidebar} 
-        activeTab={activeTab}
+        activeTab={activeTab} 
         setActiveTab={setActiveTab}
       />
       <div className="content">
-        {activeTab ? (
-          <div>
-            <h2>Текстовый редактор для вкладки {activeTab}</h2>
-            <textarea 
-              value={editorContent}
-              onChange={(e)=> setEditorContent(e.target.value)}
-              style={{width:"100%", height:"400px"}}
-            />
-          </div>
-        ) : (
-          <div>
-            <h1>Добро пожаловать!</h1>
-            <p>Выберите вкладку для редактирования.</p>
-          </div>
-        )}
+        <Routes>
+        <Route path="/editable/:id" element={<EditablePage />} />
+          <Route path="/noneditable/1741314243113" element={<GeneralInfoPage />} />
+          <Route path="/noneditable/:id" element={<NonEditablePage />} />
+          <Route path="*" element={<div>Выберите вкладку для редактирования.</div>} />
+        </Routes>
       </div>
     </div>
   );

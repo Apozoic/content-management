@@ -1,16 +1,19 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 import './Sidebar.css';
 
 function Sidebar({ isOpen, toggleSidebar, activeTab, setActiveTab }) {
   const [menuItems, setMenuItems] = useState([]);
   const [editMode, setEditMode] = useState(false);
+  const navigate = useNavigate();
 
-  // При монтировании получаем пункты меню с сервера
+  // Получаем вкладки с сервера при монтировании
   useEffect(() => {
     fetch('http://localhost:3001/menuItems')
       .then((res) => res.json())
       .then((data) => {
+        // Сортируем по order (если отсутствует, по id)
         const sorted = data.sort((a, b) => {
           const orderA = a.order !== undefined ? a.order : a.id;
           const orderB = b.order !== undefined ? b.order : b.id;
@@ -21,7 +24,7 @@ function Sidebar({ isOpen, toggleSidebar, activeTab, setActiveTab }) {
       .catch((err) => console.error('Ошибка загрузки меню:', err));
   }, []);
 
-  // Финализировать изменения – для каждого пункта отправляем PATCH-запрос
+  // Финализируем изменения: обновляем на сервере поля label, order и editable
   const finalizeEdits = async () => {
     try {
       await Promise.all(
@@ -29,7 +32,11 @@ function Sidebar({ isOpen, toggleSidebar, activeTab, setActiveTab }) {
           return fetch(`http://localhost:3001/menuItems/${item.id}`, {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ label: item.label, order: item.order, editable: item.editable }),
+            body: JSON.stringify({
+              label: item.label,
+              order: item.order,
+              editable: item.editable
+            }),
           });
         })
       );
@@ -38,22 +45,20 @@ function Sidebar({ isOpen, toggleSidebar, activeTab, setActiveTab }) {
     }
   };
 
-  // Обработчик drag-and-drop для изменения порядка
+  // Обработчик drag-n-drop для изменения порядка вкладок
   const handleDragEnd = (result) => {
     if (!result.destination) return;
     const sourceIndex = result.source.index;
     const destinationIndex = result.destination.index;
     if (sourceIndex === destinationIndex) return;
-    
     const updated = [...menuItems];
     const [removed] = updated.splice(sourceIndex, 1);
     updated.splice(destinationIndex, 0, removed);
-    // Обновляем порядок на основе нового индекса
     const withOrder = updated.map((item, index) => ({ ...item, order: index }));
     setMenuItems(withOrder);
   };
 
-  // Удаление пункта (только если editable === true)
+  // Удаление вкладки (если editable === true)
   const removeItem = async (id) => {
     try {
       await fetch(`http://localhost:3001/menuItems/${id}`, { method: 'DELETE' });
@@ -63,7 +68,7 @@ function Sidebar({ isOpen, toggleSidebar, activeTab, setActiveTab }) {
     }
   };
 
-  // Добавление нового пункта – сервер генерирует id (новые пункты editable по умолчанию)
+  // Добавление новой вкладки — новые вкладки получают editable: true
   const addItem = async () => {
     const newItem = {
       label: '',
@@ -74,7 +79,7 @@ function Sidebar({ isOpen, toggleSidebar, activeTab, setActiveTab }) {
       const response = await fetch('http://localhost:3001/menuItems', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(newItem)
+        body: JSON.stringify(newItem),
       });
       const addedItem = await response.json();
       setMenuItems((items) => [...items, addedItem]);
@@ -83,7 +88,7 @@ function Sidebar({ isOpen, toggleSidebar, activeTab, setActiveTab }) {
     }
   };
 
-  // Обработка изменения текста в input
+  // Обработка изменения текста в поле ввода
   const handleInputChange = (id, event) => {
     const newLabel = event.target.value;
     setMenuItems((items) =>
@@ -94,7 +99,7 @@ function Sidebar({ isOpen, toggleSidebar, activeTab, setActiveTab }) {
   };
 
   // Переключение режима редактирования.
-  // При выходе (нажатии "Готово") финализируем изменения.
+  // При выходе (нажатии "Готово") размываем активный input (если есть) и вызываем finalizeEdits.
   const toggleEditMode = async () => {
     if (editMode) {
       if (document.activeElement && document.activeElement.tagName === 'INPUT') {
@@ -105,9 +110,18 @@ function Sidebar({ isOpen, toggleSidebar, activeTab, setActiveTab }) {
     setEditMode((prev) => !prev);
   };
 
+  // Обработка клика по вкладке (в режиме просмотра)
+  const handleTabClick = (item) => {
+    if (item.editable) {
+      navigate(`/editable/${item.id}`);
+    } else {
+      navigate(`/noneditable/${item.id}`);
+    }
+    setActiveTab(item.id);
+  };
+
   return (
     <div className={`sidebar ${isOpen ? 'open' : 'closed'}`}>
-      {/* Кнопка переключения внутри сайдбара (можно оставить, если требуется) */}
       <button onClick={toggleSidebar} className="toggle-button">
         {isOpen ? '<' : '>'}
       </button>
@@ -116,10 +130,8 @@ function Sidebar({ isOpen, toggleSidebar, activeTab, setActiveTab }) {
           {editMode ? 'Готово' : '✎'}
         </button>
       </div>
-
       <div className="menu">
         {editMode ? (
-          // Режим редактирования: используем drag-and-drop + input
           <DragDropContext onDragEnd={handleDragEnd}>
             <Droppable droppableId="menu">
               {(provided) => (
@@ -184,13 +196,12 @@ function Sidebar({ isOpen, toggleSidebar, activeTab, setActiveTab }) {
             </Droppable>
           </DragDropContext>
         ) : (
-          // Режим просмотра: показываем пункты как кнопки на всю ширину
           <div className="display-menu">
             {menuItems.map((item) => (
-              <button 
+              <button
                 key={item.id}
-                className={`display-item-button ${activeTab === item.id ? 'active' : ''}`}
-                onClick={() => setActiveTab(item.id)}
+                className={`display-item-button ${activeTab === item.id ? 'active' : ''} ${item.editable ? 'editable' : 'noneditable'}`}
+                onClick={() => handleTabClick(item)}
               >
                 {item.label || "Новая вкладка"}
               </button>
