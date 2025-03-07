@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import NonEditablePage from "./NonEditablePage";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -8,10 +9,13 @@ import {
   faCity,
   faMapPin,
 } from "@fortawesome/free-solid-svg-icons";
+import { getPageVariables, savePageVariables } from "../services/api";
 import "./GeneralInfoPage.css";
 
 function GeneralInfoPage() {
-  // Local state for variable values
+  const { id } = useParams();
+  
+  // Локальное состояние для переменных
   const [variables, setVariables] = useState({
     type: "",
     site: "",
@@ -22,35 +26,68 @@ function GeneralInfoPage() {
 
   const [isEditing, setIsEditing] = useState(false);
   const [isTypeDropdownOpen, setIsTypeDropdownOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const dropdownRef = useRef(null);
 
-  const handleEditClick = () => {
-    setIsEditing((prev) => !prev);
+  // Загрузка переменных при первом рендере
+  useEffect(() => {
+    const fetchVariables = async () => {
+      setIsLoading(true);
+      try {
+        const data = await getPageVariables(id);
+        if (Object.keys(data).length > 0) {
+          setVariables(prev => ({
+            ...prev,
+            ...data
+          }));
+        }
+      } catch (error) {
+        console.error("Error loading variables:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    
+    fetchVariables();
+  }, [id]);
+
+  const handleEditClick = async () => {
+    if (isEditing) {
+      // Если выходим из режима редактирования, сохраняем данные
+      try {
+        await savePageVariables(id, variables);
+      } catch (error) {
+        console.error("Error saving variables:", error);
+        // Можно добавить обработку ошибок, например показать уведомление
+      }
+    }
+    setIsEditing(prev => !prev);
   };
 
   const handleInputChange = (field, value) => {
-    setVariables((prev) => ({
+    setVariables(prev => ({
       ...prev,
       [field]: value,
     }));
   };
 
   const handleTypeSelect = (value) => {
-    setVariables((prev) => ({
+    setVariables(prev => ({
       ...prev,
       type: value,
     }));
     setIsTypeDropdownOpen(false);
   };
 
-  // Close dropdown if clicked outside
+  // Обработка клика вне выпадающего списка
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setIsTypeDropdownOpen(false);
       }
     };
+    
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
@@ -73,6 +110,10 @@ function GeneralInfoPage() {
         return null;
     }
   };
+
+  if (isLoading) {
+    return <div>Загрузка данных...</div>;
+  }
 
   return (
     <NonEditablePage title="Общая информация" onEditClick={handleEditClick}>

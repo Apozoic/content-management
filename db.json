@@ -13,10 +13,28 @@
       "editable": false
     },
     {
-      "id": "5250",
-      "label": "11111",
+      "id": "bbf6",
+      "label": "4515",
       "order": 2,
       "editable": true
+    },
+    {
+      "id": "a243",
+      "label": "1515",
+      "order": 3,
+      "editable": true
+    }
+  ],
+  "pageVariables": [
+    {
+      "id": "de00",
+      "variables": {
+        "type": "Университет",
+        "site": "https://www.perplexity.ai/search/khochu-sozdat-lokalno-sait-s-p-M.es_FRER76K9iMG5ZfGsw",
+        "country": "Беларусь",
+        "city": "Минск",
+        "address": "Сухаревская 26-222"
+      }
     }
   ]
 }
