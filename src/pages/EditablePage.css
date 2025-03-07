@@ -1,0 +1,80 @@
+/* EditablePage.css */
+
+/* Main Page Container */
+.editable-page {
+    position: relative;
+    padding: 20px;
+    background-color: #ffffff;
+    min-height: 100%;
+    width: 100%;
+    max-width: 1800px;
+    margin: 0 auto;
+  }
+  
+  /* Edit Button Row */
+  .editable-button-row {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 15px;
+  }
+  
+  .editable-edit-button {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #555;
+    transition: color 0.3s;
+  }
+  
+  .editable-edit-button:hover {
+    color: #007bff;
+  }
+  
+  /* Title Row */
+  .editable-title-row {
+    margin-bottom: 20px;
+  }
+  
+  .editable-title-row h1 {
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+    margin: 0;
+  }
+  
+  /* Content Sections */
+  .editable-content {
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  }
+  
+  .editable-content h2 {
+    font-size: 22px;
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #333;
+  }
+  
+  .editable-content p {
+    margin: 0;
+    color: #555;
+    line-height: 1.5;
+  }
+  
+  /* Specific styling for different sections */
+  .editable-content-1 {
+    /* Specific styles for the first content section if needed */
+  }
+  
+  .editable-content-2 {
+    /* Specific styles for the second content section if needed */
+  }
+  
+  .editable-content-3 {
+    /* Specific styles for the third content section if needed */
+  }
+  

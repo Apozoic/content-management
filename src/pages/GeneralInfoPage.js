@@ -116,7 +116,7 @@ function GeneralInfoPage() {
   }
 
   return (
-    <NonEditablePage title="Общая информация" onEditClick={handleEditClick}>
+    <NonEditablePage title="Общая информация" onEditClick={handleEditClick}  firstSectionTitle="Общая информация">
       <div className={`modern-table-container ${isEditing ? "edit-mode" : ""}`}>
         <table className="modern-table">
           <tbody>

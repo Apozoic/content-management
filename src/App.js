@@ -5,6 +5,8 @@ import EditablePage from './pages/EditablePage';
 import NonEditablePage from './pages/NonEditablePage';
 import './App.css';
 import GeneralInfoPage from './pages/GeneralInfoPage';
+import ProgrammList from './pages/ProgrammList';
+
 
 function App() {
   // Можно хранить состояние открытого сайдбара и выбранной вкладки
@@ -26,6 +28,7 @@ function App() {
       <div className="content">
         <Routes>
         <Route path="/editable/:id" element={<EditablePage />} />
+          <Route path="/noneditable/1741314245696" element={<ProgrammList />} />
           <Route path="/noneditable/1741314243113" element={<GeneralInfoPage />} />
           <Route path="/noneditable/:id" element={<NonEditablePage />} />
           <Route path="*" element={<div>Выберите вкладку для редактирования.</div>} />

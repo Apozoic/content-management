@@ -2,7 +2,14 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import './NonEditablePage.css';
 
-function NonEditablePage({ title, onEditClick, children }) {
+function NonEditablePage({ 
+  title, 
+  onEditClick, 
+  children, 
+  firstSectionTitle = "Общая информация" // Добавляем параметр с заголовком по умолчанию
+}) {
+  const { id } = useParams();
+
   return (
     <div className="noneditable-page">
       {/* Edit Button Row */}
@@ -17,9 +24,9 @@ function NonEditablePage({ title, onEditClick, children }) {
         <h1>Название заведения</h1>
       </div>
       
-      {/* Content Section 1 */}
+      {/* Content Section 1 with customizable title */}
       <div className="noneditable-content noneditable-content-1">
-        <h2>Общая информация</h2>
+        <h2>{firstSectionTitle}</h2> {/* Используем переданный заголовок */}
         {children}
       </div>
       
