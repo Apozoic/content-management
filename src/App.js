@@ -6,13 +6,12 @@ import './App.css';
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  // Функция для переключения состояния сайдбара
   const toggleSidebar = () => {
     setIsSidebarOpen(prevState => !prevState);
   };
 
   return (
-    // Добавляем класс 'sidebar-open', когда сайдбар открыт, для сдвига основного контента
+    // Добавляем класс 'sidebar-open', если сайдбар открыт – для сдвига контента
     <div className={`App ${isSidebarOpen ? 'sidebar-open' : ''}`}>
       <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
       <div className="content">
