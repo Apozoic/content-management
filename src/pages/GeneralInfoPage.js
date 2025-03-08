@@ -1,7 +1,6 @@
-/* GeneralInfoPage.js */
 import React, { useState, useRef, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import NonEditablePage from "./NonEditablePage";
+import NonEditablePage, { Section } from "./NonEditablePage"; // Импортируем Section
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faSchool,
@@ -31,7 +30,7 @@ function GeneralInfoPage() {
 
   const dropdownRef = useRef(null);
 
-  // Загрузка переменных при первом рендере
+  // Загрузка переменных при первичном монтировании
   useEffect(() => {
     const fetchVariables = async () => {
       setIsLoading(true);
@@ -60,7 +59,6 @@ function GeneralInfoPage() {
         await savePageVariables(id, variables);
       } catch (error) {
         console.error("Error saving variables:", error);
-        // Можно добавить обработку ошибок, например показать уведомление
       }
     }
     setIsEditing(prev => !prev);
@@ -88,7 +86,6 @@ function GeneralInfoPage() {
         setIsTypeDropdownOpen(false);
       }
     };
-    
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
@@ -117,87 +114,89 @@ function GeneralInfoPage() {
   }
 
   return (
-    <NonEditablePage title="Общая информация" onEditClick={handleEditClick}  firstSectionTitle="Общая информация">
-      <div className={`modern-table-container ${isEditing ? "edit-mode" : ""}`}>
-        <table className="modern-table">
-          <tbody>
-            {[
-              { field: "type", label: "Тип" },
-              { field: "site", label: "Сайт" },
-              { field: "country", label: "Страна" },
-              { field: "city", label: "Город" },
-              { field: "address", label: "Адрес" },
-            ].map((row) => (
-              <tr key={row.field} className="modern-row">
-                <td className="icon-cell">
-                  <FontAwesomeIcon icon={getIcon(row.field)} />
-                </td>
-                <td className="label-cell">{row.label}</td>
-                <td className="divider"></td>
-                <td className="value-cell">
-                  {isEditing ? (
-                    row.field === "type" ? (
-                      <div
-                        className="custom-dropdown-container"
-                        ref={dropdownRef}
-                      >
-                        <div
-                          className="dropdown-selected"
-                          onClick={() =>
-                            setIsTypeDropdownOpen(!isTypeDropdownOpen)
-                          }
-                        >
-                          {variables.type || "Выберите тип"}
-                          <span className="dropdown-arrow">▼</span>
-                        </div>
-                        {isTypeDropdownOpen && (
-                          <div className="dropdown-options">
-                            <div
-                              className="dropdown-option"
-                              onClick={() => handleTypeSelect("Школа")}
-                            >
-                              Школа
-                            </div>
-                            <div
-                              className="dropdown-option"
-                              onClick={() => handleTypeSelect("Университет")}
-                            >
-                              Университет
-                            </div>
+    <NonEditablePage title="Общая информация" onEditClick={handleEditClick}>
+      {/* Первая секция с таблицей */}
+      <Section title="Общая информация" className="noneditable-content-1">
+        <div className={`modern-table-container ${isEditing ? "edit-mode" : ""}`}>
+          <table className="modern-table">
+            <tbody>
+              {[
+                { field: "type", label: "Тип" },
+                { field: "site", label: "Сайт" },
+                { field: "country", label: "Страна" },
+                { field: "city", label: "Город" },
+                { field: "address", label: "Адрес" },
+              ].map((row) => (
+                <tr key={row.field} className="modern-row">
+                  <td className="icon-cell">
+                    <FontAwesomeIcon icon={getIcon(row.field)} />
+                  </td>
+                  <td className="label-cell">{row.label}</td>
+                  <td className="divider"></td>
+                  <td className="value-cell">
+                    {isEditing ? (
+                      row.field === "type" ? (
+                        <div className="custom-dropdown-container" ref={dropdownRef}>
+                          <div
+                            className="dropdown-selected"
+                            onClick={() => setIsTypeDropdownOpen(!isTypeDropdownOpen)}
+                          >
+                            {variables.type || "Выберите тип"}
+                            <span className="dropdown-arrow">▼</span>
                           </div>
-                        )}
-                      </div>
+                          {isTypeDropdownOpen && (
+                            <div className="dropdown-options">
+                              <div className="dropdown-option" onClick={() => handleTypeSelect("Школа")}>
+                                Школа
+                              </div>
+                              <div className="dropdown-option" onClick={() => handleTypeSelect("Университет")}>
+                                Университет
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      ) : (
+                        <input
+                          type="text"
+                          value={variables[row.field]}
+                          placeholder={`Введите ${row.label.toLowerCase()}`}
+                          onChange={(e) => handleInputChange(row.field, e.target.value)}
+                          className="custom-input"
+                        />
+                      )
+                    ) : row.field === "site" && variables.site ? (
+                      <a
+                        href={variables[row.field]}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="site-link"
+                      >
+                        {variables[row.field].length > 20
+                          ? `${variables[row.field].slice(0, 20)}...`
+                          : variables[row.field]}
+                      </a>
                     ) : (
-                      <input
-                        type="text"
-                        value={variables[row.field]}
-                        placeholder={`Введите ${row.label.toLowerCase()}`}
-                        onChange={(e) =>
-                          handleInputChange(row.field, e.target.value)
-                        }
-                        className="custom-input"
-                      />
-                    )
-                  ) : row.field === "site" && variables.site ? (
-                    <a
-                      href={variables[row.field]}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="site-link"
-                    >
-                      {variables[row.field].length > 20
-                        ? `${variables[row.field].slice(0, 20)}...`
-                        : variables[row.field]}
-                    </a>
-                  ) : (
-                    variables[row.field] || ""
-                  )}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+                      variables[row.field] || ""
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </Section>
+      <Section title="Список программ" className="noneditable-content-1">
+              <p>Здесь можно размещать программы обучения.</p>
+              <p>Дополнительная информация о доступных программах.</p>
+            </Section>
+            <Section title="Список программ" className="noneditable-content-1">
+              <p>Здесь можно размещать программы обучения.</p>
+              <p>Дополнительная информация о доступных программах.</p>
+            </Section>
+            <Section title="Список программ" className="noneditable-content-1">
+              <p>Здесь можно размещать программы обучения.</p>
+              <p>Дополнительная информация о доступных программах.</p>
+            </Section>
     </NonEditablePage>
   );
 }

@@ -1,14 +1,19 @@
-/* NonEditablePage.js */
+// NonEditablePage.js
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import './NonEditablePage.css';
 
-function NonEditablePage({ 
-  title, 
-  onEditClick, 
-  children, 
-  firstSectionTitle = "Общая информация" // Добавляем параметр с заголовком по умолчанию
-}) {
+// Экспортируем компонент Section для использования в других файлах
+export function Section({ title, children, className }) {
+  return (
+    <div className={`noneditable-content ${className || ''}`}>
+      <h2>{title}</h2>
+      {children}
+    </div>
+  );
+}
+
+function NonEditablePage({ title, onEditClick, children }) {
   const { id } = useParams();
 
   return (
@@ -25,23 +30,8 @@ function NonEditablePage({
         <h1>Название заведения</h1>
       </div>
       
-      {/* Content Section 1 with customizable title */}
-      <div className="noneditable-content noneditable-content-1">
-        <h2>{firstSectionTitle}</h2> {/* Используем переданный заголовок */}
-        {children}
-      </div>
-      
-      {/* Content Section 2 */}
-      <div className="noneditable-content noneditable-content-2">
-        <h2>Вторая секция</h2>
-        <p>Содержимое второй секции страницы.</p>
-      </div>
-      
-      {/* Content Section 3 */}
-      <div className="noneditable-content noneditable-content-3">
-        <h2>Третья секция</h2>
-        <p>Содержимое третьей секции страницы.</p>
-      </div>
+      {/* Здесь выводим все секции, которые передаются через children */}
+      {children}
     </div>
   );
 }

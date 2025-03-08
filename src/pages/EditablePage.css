@@ -1,4 +1,5 @@
 /* EditablePage.css */
+/* EditablePage.css */
 
 /* Main Page Container */
 .editable-page {
@@ -67,14 +68,14 @@
   
   /* Specific styling for different sections */
   .editable-content-1 {
-    /* Specific styles for the first content section if needed */
+    color: #555;
   }
   
   .editable-content-2 {
-    /* Specific styles for the second content section if needed */
+    color: #555;
   }
   
   .editable-content-3 {
-    /* Specific styles for the third content section if needed */
+    color: #555;
   }
   

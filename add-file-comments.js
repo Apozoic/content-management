@@ -1,3 +1,5 @@
+/* add-file-comments.js */
+
 const fs = require('fs').promises;
 const path = require('path');
 
@@ -10,7 +12,7 @@ const rootDir = process.argv[2] || '.my-app/src';
  * @returns {Promise<string[]>} Promise resolving to an array of file paths
  */
 async function getFiles(dir) {
-  const items = await fs.readdir(dir);
+  const items = await fs.readdir(dir); 
   
   const files = await Promise.all(items.map(async (item) => {
     const fullPath = path.join(dir, item);

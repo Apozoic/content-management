@@ -13,21 +13,38 @@
       "editable": false
     },
     {
-      "id": "bbf6",
-      "label": "4515",
+      "id": "5250",
+      "label": "11111",
       "order": 2,
+      "editable": true
+    },
+    {
+      "id": "baea",
+      "label": "55555",
+      "order": 3,
       "editable": true
     }
   ],
   "pageVariables": [
     {
-      "id": "de00",
+      "id": "1",
+      "pageId": "1741314243113",
       "variables": {
         "type": "Школа",
-        "site": "https://www.perplexity.ai/search/khochu-sozdat-lokalno-sait-s-p-M.es_FRER76K9iMG5ZfGsw",
-        "country": "Беларусь",
-        "city": "Минск",
-        "address": "Сухаревская 26-222"
+        "site": "example.com",
+        "country": "Россия",
+        "city": "Москва",
+        "address": "ул. Примерная, 123"
+      }
+    },
+    {
+      "id": "0ad2",
+      "variables": {
+        "type": "Школа",
+        "site": "55555",
+        "country": "3333",
+        "city": "3333",
+        "address": "2222"
       }
     }
   ]
