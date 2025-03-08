@@ -44,7 +44,8 @@
         "site": "55555",
         "country": "3333",
         "city": "3333",
-        "address": "2222"
+        "address": "2222",
+        "programList": "<a href=\"https://www.tees.ac.uk/undergraduate_courses/animation_concept_art_&_visual_effects/ba_(hons)_2d_animation_and_stop_motion.cfm\">2D Animation and Stop Motion, BA (Hons)</a><a href=\"https://www.tees.ac.uk/undergraduate_courses/animation_concept_art_&_visual_effects/ba_(hons)_2d_animation_and_stop_motion_(with_foundation_year).cfm\">2D Animation and Stop Motion (with Foundation Year), BA (Hons)</a><a href=\"https://www.tees.ac.uk/undergraduate_courses/accounting_&_economics/bsc_(hons)_accounting_and_finance.cfm\">Accounting and Finance, BSc (Hons)</a><a href=\"https://www.tees.ac.uk/undergraduate_courses/accounting_&_economics/bsc_(hons)_accounting_and_finance_(with_foundation_year).cfm\">Accounting and Finance (with Foundation Year), BSc (Hons)</a><a href=\"https://www.tees.ac.uk/undergraduate_courses/engineering_&_construction/hnc_aeronautical_engineering.cfm\">Aeronautical Engineering, HNC</a>\n"
       }
     }
   ]

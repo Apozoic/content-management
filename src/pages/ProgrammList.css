@@ -1,1 +1,17 @@
-/* ProgrammList.css */
+.program-list-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Выравнивает элементы по началу, без растягивания /
+    gap: 5px; / Расстояние между ссылками */
+    }
+    
+    .program-list-content a {
+    display: inline-block; /* inline-block – чтобы размер соответствовал содержимому /
+    text-decoration: none;
+    color: #007bff;
+    / Дополнительно можно добавить transition и hover */
+    }
+    
+    .program-list-content a:hover {
+    text-decoration: underline;
+    }

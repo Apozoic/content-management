@@ -1,15 +1,25 @@
 /* NonEditablePage.js */
-// NonEditablePage.js
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import './NonEditablePage.css';
 
-// Экспортируем компонент Section для использования в других файлах
+// Компонент Section теперь поддерживает сворачивание/разворачивание
 export function Section({ title, children, className }) {
+  const [collapsed, setCollapsed] = useState(false);
+
+  const toggleCollapse = () => {
+    setCollapsed((prev) => !prev);
+  };
+
   return (
     <div className={`noneditable-content ${className || ''}`}>
-      <h2>{title}</h2>
-      {children}
+      <div className="section-header" onClick={toggleCollapse}>
+        <h2>{title}</h2>
+        <span className="toggle-indicator">
+          {collapsed ? '▼' : '▲'}
+        </span>
+      </div>
+      {!collapsed && <div className="section-body">{children}</div>}
     </div>
   );
 }
@@ -31,7 +41,7 @@ function NonEditablePage({ title, onEditClick, children }) {
         <h1>Название заведения</h1>
       </div>
       
-      {/* Здесь выводим все секции, которые передаются через children */}
+      {/* Вывод всех секций, которые переданы через children */}
       {children}
     </div>
   );
