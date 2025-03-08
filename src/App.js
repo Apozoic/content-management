@@ -1,5 +1,4 @@
 /* App.js */
-// App.js - исправленная версия
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import WelcomePage from './pages/WelcomePage';

@@ -1,5 +1,5 @@
-// hooks/useUniversityTable.js
-// hooks/useUniversityTable.js
+/* useUniversityTable.js */
+/* useUniversityTable.js */
 import { useState, useEffect, useCallback } from 'react';
 import { useAppData } from '../context/DataContext';
 
