@@ -1,3 +1,4 @@
+/* api.js */
 // Базовый URL для json-server
 const API_URL = 'http://localhost:3001';
 

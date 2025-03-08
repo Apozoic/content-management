@@ -1,3 +1,4 @@
+/* WelcomePage.js */
 import React from 'react';
 
 function WelcomePage() {

@@ -1,3 +1,4 @@
+/* EditablePage.js */
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import './EditablePage.css'; // We'll need to create this CSS file

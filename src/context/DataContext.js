@@ -1,3 +1,4 @@
+/* DataContext.js */
 import React, { createContext, useContext, useState } from 'react';
 import { getPageVariables as fetchPageVariables, savePageVariables as savePageVariablesToAPI } from '../services/api';
 
