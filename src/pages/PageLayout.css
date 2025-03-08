@@ -1,0 +1,147 @@
+/* PageLayout.css */
+.page-layout {
+    display: grid;
+    grid-template-rows: 1fr;
+    height: 100vh;
+    gap: 16px;
+    padding: 16px;
+    transition: all 0.3s ease;
+  }
+  
+  /* Основная сетка по умолчанию (все блоки по горизонтали) */
+  .page-layout {
+    grid-template-columns: 50px 2fr 1fr 50px;
+    grid-template-areas: "left-sidebar main-content comments right-sidebar";
+  }
+  
+  /* Сетка когда левый сайдбар открыт */
+  .page-layout.left-sidebar-open {
+    grid-template-columns: 250px 2fr 1fr 50px;
+  }
+  
+  /* Сетка когда правый сайдбар открыт */
+  .page-layout.right-sidebar-open {
+    grid-template-columns: 50px 2fr 1fr 250px;
+  }
+  
+  /* Сетка когда оба сайдбара открыты */
+  .page-layout.left-sidebar-open.right-sidebar-open {
+    grid-template-columns: 250px 2fr 1fr 250px;
+  }
+  
+  /* Сетка когда комментарии отключены */
+  .page-layout.no-comments {
+    grid-template-columns: 50px 1fr 0 50px;
+  }
+  
+  .page-layout.no-comments.left-sidebar-open {
+    grid-template-columns: 250px 1fr 0 50px;
+  }
+  
+  .page-layout.no-comments.right-sidebar-open {
+    grid-template-columns: 50px 1fr 0 250px;
+  }
+  
+  .page-layout.no-comments.left-sidebar-open.right-sidebar-open {
+    grid-template-columns: 250px 1fr 0 250px;
+  }
+  
+  /* Области размещения компонентов */
+  .layout-left-sidebar {
+    grid-area: left-sidebar;
+    overflow: hidden;
+    position: relative;
+    transition: width 0.3s;
+  }
+  
+  .layout-main-content {
+    grid-area: main-content;
+  }
+  
+  .layout-comments {
+    grid-area: comments;
+  }
+  
+  .layout-right-sidebar {
+    grid-area: right-sidebar;
+    overflow: hidden;
+    position: relative;
+    transition: width 0.3s;
+  }
+  
+  /* Кнопка переключения сайдбара */
+  .sidebar-toggle {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    width: 24px;
+    height: 60px;
+    border: none;
+    background-color: #f0f0f0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: all 0.3s;
+  }
+  
+  .sidebar-toggle:hover {
+    background-color: #e0e0e0;
+  }
+  
+  /* Позиционирование кнопок */
+  .left-toggle {
+    right: -12px;
+    border-radius: 0 4px 4px 0;
+  }
+  
+  .right-toggle {
+    left: -12px;
+    border-radius: 4px 0 0 4px;
+  }
+  
+  /* Содержимое сайдбаров */
+  .sidebar-content {
+    height: 100%;
+    overflow: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+  }
+  
+  /* Скрываем содержимое при закрытом сайдбаре */
+  .left-sidebar-closed .layout-left-sidebar .sidebar-content,
+  .right-sidebar-closed .layout-right-sidebar .sidebar-content {
+    opacity: 0;
+    visibility: hidden;
+  }
+  
+  /* Блоки содержимого */
+  .content-block {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    overflow: hidden;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .block-header {
+    padding: 12px 16px;
+    background-color: #f5f5f5;
+    font-weight: 600;
+    border-bottom: 1px solid #eaeaea;
+  }
+  
+  .block-content {
+    padding: 16px;
+    flex: 1;
+    overflow: auto;
+  }
+  
+  /* Стили для сайдбаров */
+  .sidebar .block-content {
+    padding: 0;
+  }
+  
