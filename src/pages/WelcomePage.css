@@ -1,23 +1,39 @@
-/* WelcomePage.css */
-/* В WelcomePage.css или другой CSS-файл */
-.actions {
-    margin-top: 20px;
-    display: flex;
-    justify-content: flex-end;
-  }
-  
-  .add-university-btn {
-    background-color: #4CAF50;
+/* Стили для кнопки "Добавить университет" */
+.add-university-btn {
+    background-color: #4a90e2;
     color: white;
     border: none;
-    padding: 10px 16px;
-    border-radius: 4px;
+    padding: 12px 20px;
+    border-radius: 6px;
     cursor: pointer;
     font-weight: 500;
-    transition: background-color 0.3s;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    margin-top: 20px;
+    box-shadow: 0 2px 6px rgba(74, 144, 226, 0.3);
   }
   
   .add-university-btn:hover {
-    background-color: #45a049;
+    background-color: #2a7ad1;
+    transform: translateY(-1px);
+  }
+  
+  .add-university-btn:active {
+    transform: translateY(1px);
+  }
+  
+  .add-university-btn::before {
+    content: "+";
+    margin-right: 8px;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
   }
   

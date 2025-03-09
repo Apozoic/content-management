@@ -3,7 +3,7 @@
     {
       "id": "64f3",
       "name": "Юридический Университет №308",
-      "location": "Юридический Университет №308",
+      "location": "Артур",
       "website": "Юридический Университет №308",
       "founded": null,
       "type": "Юридический Университет №308"
@@ -11,31 +11,31 @@
     {
       "id": "777d",
       "name": "Аграрный Университет №595",
-      "location": "safsaf",
-      "website": "",
+      "location": "555555555555",
+      "website": "Артур",
       "founded": 5555,
-      "type": ""
+      "type": "афыаыфа"
     },
     {
       "id": "c13a",
       "name": "Архитектурный Институт №923",
-      "location": "",
+      "location": "Артур",
       "website": "fasfasf",
-      "founded": null,
-      "type": ""
+      "founded": 5555,
+      "type": "афыаыфаыфао"
     },
     {
       "id": "13a0",
       "name": "Академия Управления №352",
       "location": "asfsaf",
-      "website": "",
+      "website": "Артур",
       "founded": null,
       "type": ""
     },
     {
       "id": "af97",
       "name": "fassaf",
-      "location": "",
+      "location": "Артур",
       "website": "fasfasf",
       "founded": null,
       "type": ""
@@ -44,14 +44,14 @@
       "id": "4ad7",
       "name": "Аграрный Университет №708",
       "location": "",
-      "website": "",
+      "website": "Артур",
       "founded": null,
       "type": ""
     },
     {
       "id": "5c64",
       "name": "Высшая Школа Экономики №456",
-      "location": "афыаыфа",
+      "location": "Артур",
       "website": "",
       "founded": 555555555,
       "type": ""
@@ -124,7 +124,7 @@
       "id": "d96c",
       "name": "Институт Международных Отношений №64",
       "location": "афыаыфа",
-      "website": "",
+      "website": "Артур",
       "founded": null,
       "type": ""
     },
@@ -132,14 +132,14 @@
       "id": "3156",
       "name": "Государственный Университет №496",
       "location": "",
-      "website": "",
+      "website": "Артур",
       "founded": null,
       "type": "афыафа"
     },
     {
       "id": "7263",
       "name": "Архитектурный Институт №137",
-      "location": "",
+      "location": "Артур",
       "website": "афыафыа",
       "founded": null,
       "type": ""
@@ -147,7 +147,7 @@
     {
       "id": "e4f9",
       "name": "Аграрный Университет №909",
-      "location": "",
+      "location": "Артур",
       "website": "",
       "founded": null,
       "type": "афыафа"
@@ -156,15 +156,15 @@
       "id": "7620",
       "name": "Медицинская Академия №867",
       "location": "",
-      "website": "афыаыфа",
-      "founded": null,
+      "website": "maryadi.com",
+      "founded": 55555,
       "type": ""
     },
     {
       "id": "db3d",
       "name": "Гуманитарная Академия №347",
       "location": "афыаыфа",
-      "website": "",
+      "website": "11111",
       "founded": null,
       "type": "афыаыфа"
     },
@@ -183,6 +183,54 @@
       "website": "фыаыфа",
       "founded": null,
       "type": "фаыафа"
+    },
+    {
+      "id": "8453",
+      "name": "Технический Университет №959",
+      "location": "",
+      "website": "Артур",
+      "founded": null,
+      "type": ""
+    },
+    {
+      "id": "7bda",
+      "name": "Институт Точных Наук №816",
+      "location": "",
+      "website": "Артур",
+      "founded": null,
+      "type": ""
+    },
+    {
+      "id": "dc74",
+      "name": "Государственный Университет №848",
+      "location": "",
+      "website": "Артур",
+      "founded": null,
+      "type": ""
+    },
+    {
+      "id": "8f56",
+      "name": "Архитектурный Институт №309",
+      "location": "",
+      "website": "Артур",
+      "founded": null,
+      "type": ""
+    },
+    {
+      "id": "430b",
+      "name": "Технический Университет №847",
+      "location": "",
+      "website": "Артур",
+      "founded": null,
+      "type": ""
+    },
+    {
+      "id": "12f7",
+      "name": "Юридический Университет №504",
+      "location": "",
+      "website": "Артур",
+      "founded": null,
+      "type": ""
     }
   ]
 }

@@ -1,27 +1,160 @@
-/* UniversityTable.css */
-/* UniversityTable.css */
-.status-message {
-    padding: 10px;
+/* Основной контейнер таблицы */
+.university-table-container {
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  
+  /* Заголовок таблицы */
+  .modern-table-title {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+    font-weight: 500;
+  }
+  
+  /* Обертка таблицы для прокрутки на малых экранах */
+  .modern-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Стили для современной таблицы */
+  .modern-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: white;
+  }
+  
+  .modern-table thead {
+    background-color: #f8f9fa;
+  }
+  
+  .modern-table th {
+    padding: 16px 15px;
+    text-align: left;
+    font-weight: 600;
+    color: #495057;
+    border-bottom: 2px solid #e9ecef;
+    white-space: nowrap;
+  }
+  
+  .modern-table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #e9ecef;
+    color: #333;
+    height: 24px; /* Фиксированная высота ячейки */
+    vertical-align: middle;
+  }
+  
+  .modern-table tr:last-child td {
+    border-bottom: none;
+  }
+  
+  .modern-table tr:hover {
+    background-color: #f8f9fa;
+  }
+  
+  /* Стили для ячеек и редактирования */
+  .cell-content {
+    min-height: 22px;
+    cursor: pointer;
+    padding: 4px 0;
+    display: block;
+    width: 100%;
+  }
+  
+  /* Подсветка ячейки при наведении */
+.cell-content:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .modern-cell-input {
+    width: 100%;
+    border: none;
+    background-color: #ffecf0; /* Светло-розовый фон */
+    font-size: inherit;
+    font-family: inherit;
+    color: inherit;
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    outline: none;
+    box-sizing: border-box;
+  }
+  
+  /* Стили для состояния загрузки */
+  .modern-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 200px;
+    width: 100%;
+  }
+  
+  .spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    border-left-color: #4a90e2;
+    animation: spin 1s linear infinite;
     margin-bottom: 15px;
-    border-radius: 4px;
-    text-align: center;
-    animation: fade-in 0.3s ease-in-out;
   }
   
-  .status-message.success {
-    background-color: #d4edda;
-    color: #155724;
-    border: 1px solid #c3e6cb;
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
   }
   
-  .status-message.error {
-    background-color: #f8d7da;
-    color: #721c24;
-    border: 1px solid #f5c6cb;
+  /* Адаптивность для маленьких экранов */
+  @media (max-width: 768px) {
+    .modern-table th,
+    .modern-table td {
+      padding: 10px 8px;
+      font-size: 14px;
+    }
+    
+    .modern-table-title {
+      font-size: 20px;
+    }
   }
   
-  @keyframes fade-in {
-    from { opacity: 0; }
-    to { opacity: 1; }
+  /* Стили для ссылок на веб-сайты */
+.website-link {
+    color: #666666; /* Неактивный серый цвет для всех ссылок */
+    text-decoration: underline; /* Подчеркивание для визуальной идентификации ссылок */
+    cursor: pointer;
+  }
+  
+  /* Переопределяем стандартные стили для посещенных ссылок */
+  .website-link:visited {
+    color: #666666; /* Тот же неактивный цвет для посещенных ссылок */
+  }
+  
+  /* Стиль при наведении для обратной связи пользователю */
+  .website-link:hover {
+    color: #666666; /* Сохраняем тот же цвет */
+    text-decoration: underline; /* Сохраняем подчеркивание */
+  }
+  
+  /* Стиль для активного состояния */
+  .website-link:active {
+    color: #666666; /* Сохраняем тот же цвет */
+  }
+  
+  /* Убираем обводку фокуса */
+  .website-link:focus {
+    outline: none;
   }
   
