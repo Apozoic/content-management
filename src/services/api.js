@@ -3,68 +3,81 @@ const API_URL = 'http://localhost:3001';
 
 // Получение списка всех университетов
 export const getUniversities = async () => {
-  const response = await fetch(`${API_URL}/universities`);
-  return await response.json();
+  try {
+    const response = await fetch(`${API_URL}/universities`);
+    if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
+    return await response.json();
+  } catch (error) {
+    console.error("Error fetching universities:", error);
+    return [];
+  }
 };
 
 // Получение данных конкретного университета по ID
 export const getUniversityById = async (universityId) => {
-  const response = await fetch(`${API_URL}/universities/${universityId}`);
-  return await response.json();
-};
-
-// Сохранение данных университета
-export const saveUniversity = async (universityId, universityData) => {
   try {
-    // Проверяем существование университета
-    const checkResponse = await fetch(`${API_URL}/universities/${universityId}`);
-    
-    if (checkResponse.ok) {
-      // Если университет существует - обновляем по ID
-      const response = await fetch(`${API_URL}/universities/${universityId}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(universityData)
-      });
-      return await response.json();
-    } else {
-      // Проверяем, нет ли уже университета с таким именем
-      const nameCheckResponse = await fetch(`${API_URL}/universities?name=${encodeURIComponent(universityData.name)}`);
-      const existingByName = await nameCheckResponse.json();
-      
-      if (existingByName.length > 0) {
-        // Если университет с таким именем уже существует, обновляем его
-        const existingId = existingByName[0].id;
-        const response = await fetch(`${API_URL}/universities/${existingId}`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            ...universityData,
-            id: existingId // Обязательно сохраняем существующий ID
-          })
-        });
-        return await response.json();
-      } else {
-        // Создаем новый университет с переданным ID
-        const response = await fetch(`${API_URL}/universities`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(universityData)
-        });
-        return await response.json();
-      }
-    }
+    const response = await fetch(`${API_URL}/universities`);
+    if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
+    const universities = await response.json();
+    return universities.find(uni => Number(uni.id) === Number(universityId)) || null;
   } catch (error) {
-    console.error("Error saving university:", error);
-    throw error;
+    console.error(`Error fetching university ${universityId}:`, error);
+    return null;
   }
 };
+
+// Сохранение данных университета - простая и надежная версия
+export const saveUniversity = async (universityId, universityData) => {
+  try {
+    // Получаем все университеты для проверки
+    const response = await fetch(`${API_URL}/universities`);
+    const universities = await response.json();
+    
+    // Ищем университет с таким ID
+    const exists = universities.some(uni => Number(uni.id) === Number(universityId));
+    
+    if (exists) {
+      // Обновляем существующий через PUT
+      console.log(`Обновляем существующий университет ID=${universityId}`);
+      const updateResponse = await fetch(`${API_URL}/universities/${universityId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(universityData)
+      });
+      
+      if (!updateResponse.ok) {
+        console.error(`Ошибка обновления: ${updateResponse.status}`);
+        // Если обновление не удалось, пробуем создать новую запись
+        return await createNewUniversity(universityData);
+      }
+      
+      return await updateResponse.json();
+    } else {
+      // Создаем новый университет
+      return await createNewUniversity(universityData);
+    }
+  } catch (error) {
+    console.error("Error in saveUniversity:", error);
+    return universityData; // Возвращаем исходные данные при ошибке
+  }
+};
+
+// Вспомогательная функция для создания нового университета
+async function createNewUniversity(universityData) {
+  console.log(`Создаем новый университет ID=${universityData.id}`);
+  const createResponse = await fetch(`${API_URL}/universities`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(universityData)
+  });
+  
+  if (!createResponse.ok) {
+    console.error(`Ошибка создания: ${createResponse.status}`);
+    return universityData;
+  }
+  
+  return await createResponse.json();
+}
 
 
 

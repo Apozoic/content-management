@@ -1,8 +1,10 @@
 /* WelcomePage.js */
+/* WelcomePage.js */
 import React from 'react';
 import PageLayout from './PageLayout'; // Проверьте правильность пути
 import { Link } from 'react-router-dom';
 import UniversityTable from '../components/UniversityTable';
+import { useUniversityTable } from '../components/useUniversityTable';
 
 // Компоненты для разных секций
 const LeftSidebar = () => (
@@ -29,6 +31,9 @@ const RightSidebar = () => (
 );
 
 function WelcomePage() {
+  // Получаем функцию из хука
+  const { addNewUniversity } = useUniversityTable();
+
   return (
     <PageLayout
       leftSidebar={<LeftSidebar />}
@@ -41,7 +46,12 @@ function WelcomePage() {
           <UniversityTable />
           
           <div className="actions">
-            <button className="add-university-btn">+ Добавить университет</button>
+            <button 
+              className="add-university-btn" 
+              onClick={addNewUniversity}
+            >
+              + Добавить университет
+            </button>
           </div>
         </div>
       }

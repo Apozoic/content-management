@@ -2,25 +2,97 @@
   "universities": [
     {
       "id": "1",
-      "name": "ооооооооо",
-      "location": "2555555555",
-      "website": "33333333333",
-      "founded": 22222222222,
-      "type": "222"
+      "name": "1",
+      "location": "asfsafa",
+      "website": "asfsafaf",
+      "founded": 33333,
+      "type": "ыфаыфаыфа"
     },
     {
-      "id": 1741468823226,
-      "name": "Новый университет 1741468823226",
+      "id": "3212",
+      "name": "2",
+      "location": "sfsafsaf",
+      "website": "fasasfsaf",
+      "founded": null,
+      "type": ""
+    },
+    {
+      "id": "cff9",
+      "name": "3",
       "location": "",
+      "website": "gasgasg",
+      "founded": null,
+      "type": ""
+    },
+    {
+      "id": "7f7e",
+      "name": "4",
+      "location": "1111111111",
+      "website": "",
+      "founded": 5555,
+      "type": "asgasg"
+    },
+    {
+      "id": "6ae7",
+      "name": "5",
+      "location": "",
+      "website": "222222222",
+      "founded": null,
+      "type": ""
+    },
+    {
+      "id": "ec47",
+      "name": "6",
+      "location": "asfasf",
+      "website": "33333333",
+      "founded": null,
+      "type": ""
+    },
+    {
+      "id": "67af",
+      "name": "8",
+      "location": "44444444444",
+      "website": "fasfsaf",
+      "founded": null,
+      "type": ""
+    },
+    {
+      "id": "bff9",
+      "name": "7",
+      "location": "afasfasf",
+      "website": "fasfsaf",
+      "founded": null,
+      "type": ""
+    },
+    {
+      "id": "10e5",
+      "name": "9",
+      "location": "fasfffffffff",
       "website": "",
       "founded": null,
       "type": ""
     },
     {
-      "id": 1741468827917,
-      "name": "Новый университет 1741468827917",
+      "id": "07e8",
+      "name": "Новый университет",
       "location": "",
+      "website": "asgsaasg",
+      "founded": null,
+      "type": ""
+    },
+    {
+      "id": "4cad",
+      "name": "Новый университет",
+      "location": "asgsag",
       "website": "",
+      "founded": null,
+      "type": ""
+    },
+    {
+      "id": "ba48",
+      "name": "Новый университет",
+      "location": "",
+      "website": "sagagsag",
       "founded": null,
       "type": ""
     }

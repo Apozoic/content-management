@@ -1,0 +1,23 @@
+/* WelcomePage.css */
+/* В WelcomePage.css или другой CSS-файл */
+.actions {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .add-university-btn {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.3s;
+  }
+  
+  .add-university-btn:hover {
+    background-color: #45a049;
+  }
+  
