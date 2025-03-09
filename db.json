@@ -3,18 +3,186 @@
     {
       "id": "64f3",
       "name": "Юридический Университет №308",
-      "location": "",
-      "website": "fasfsaf",
+      "location": "Юридический Университет №308",
+      "website": "Юридический Университет №308",
       "founded": null,
-      "type": ""
+      "type": "Юридический Университет №308"
     },
     {
       "id": "777d",
       "name": "Аграрный Университет №595",
       "location": "safsaf",
       "website": "",
+      "founded": 5555,
+      "type": ""
+    },
+    {
+      "id": "c13a",
+      "name": "Архитектурный Институт №923",
+      "location": "",
+      "website": "fasfasf",
       "founded": null,
       "type": ""
+    },
+    {
+      "id": "13a0",
+      "name": "Академия Управления №352",
+      "location": "asfsaf",
+      "website": "",
+      "founded": null,
+      "type": ""
+    },
+    {
+      "id": "af97",
+      "name": "fassaf",
+      "location": "",
+      "website": "fasfasf",
+      "founded": null,
+      "type": ""
+    },
+    {
+      "id": "4ad7",
+      "name": "Аграрный Университет №708",
+      "location": "",
+      "website": "",
+      "founded": null,
+      "type": ""
+    },
+    {
+      "id": "5c64",
+      "name": "Высшая Школа Экономики №456",
+      "location": "афыаыфа",
+      "website": "",
+      "founded": 555555555,
+      "type": ""
+    },
+    {
+      "id": "1960",
+      "name": "Медицинская Академия №729",
+      "location": "",
+      "website": "афыафыа",
+      "founded": null,
+      "type": ""
+    },
+    {
+      "id": "ff80",
+      "name": "Архитектурный Институт №432",
+      "location": "",
+      "website": "",
+      "founded": null,
+      "type": ""
+    },
+    {
+      "id": "f71e",
+      "name": "Медицинская Академия №294",
+      "location": "Медицинская Академия №294",
+      "website": "Медицинская Академия №294",
+      "founded": null,
+      "type": "Медицинская Академия №294"
+    },
+    {
+      "id": "de2e",
+      "name": "Юридический Университет №481",
+      "location": "",
+      "website": "",
+      "founded": null,
+      "type": ""
+    },
+    {
+      "id": "d4e8",
+      "name": "Юридический Университет №941",
+      "location": "Юридический Университет №941",
+      "website": "Юридический Университет №941",
+      "founded": null,
+      "type": "Юридический Университет №941"
+    },
+    {
+      "id": "9154",
+      "name": "Государственный Университет №474",
+      "location": "",
+      "website": "",
+      "founded": null,
+      "type": ""
+    },
+    {
+      "id": "3e8c",
+      "name": "Институт Точных Наук №907",
+      "location": "",
+      "website": "афыафыа",
+      "founded": null,
+      "type": ""
+    },
+    {
+      "id": "df7b",
+      "name": "Медицинская Академия №985",
+      "location": "Медицинская Академия №985",
+      "website": "Медицинская Академия №985",
+      "founded": null,
+      "type": "Медицинская Академия №985"
+    },
+    {
+      "id": "d96c",
+      "name": "Институт Международных Отношений №64",
+      "location": "афыаыфа",
+      "website": "",
+      "founded": null,
+      "type": ""
+    },
+    {
+      "id": "3156",
+      "name": "Государственный Университет №496",
+      "location": "",
+      "website": "",
+      "founded": null,
+      "type": "афыафа"
+    },
+    {
+      "id": "7263",
+      "name": "Архитектурный Институт №137",
+      "location": "",
+      "website": "афыафыа",
+      "founded": null,
+      "type": ""
+    },
+    {
+      "id": "e4f9",
+      "name": "Аграрный Университет №909",
+      "location": "",
+      "website": "",
+      "founded": null,
+      "type": "афыафа"
+    },
+    {
+      "id": "7620",
+      "name": "Медицинская Академия №867",
+      "location": "",
+      "website": "афыаыфа",
+      "founded": null,
+      "type": ""
+    },
+    {
+      "id": "db3d",
+      "name": "Гуманитарная Академия №347",
+      "location": "афыаыфа",
+      "website": "",
+      "founded": null,
+      "type": "афыаыфа"
+    },
+    {
+      "id": "fac9",
+      "name": "Высшая Школа Экономики №412",
+      "location": "",
+      "website": "афыафыа",
+      "founded": null,
+      "type": ""
+    },
+    {
+      "id": "1a2b",
+      "name": "Юридический Университет №596",
+      "location": "",
+      "website": "фыаыфа",
+      "founded": null,
+      "type": "фаыафа"
     }
   ]
 }

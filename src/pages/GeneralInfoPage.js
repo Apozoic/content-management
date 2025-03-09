@@ -10,7 +10,7 @@ import {
   faCity,
   faMapPin,
 } from "@fortawesome/free-solid-svg-icons";
-import { getPageVariables, savePageVariables } from "../services/api";
+import { getPageVariables, savePageVariables } from "../services/universityApi";
 import "./GeneralInfoPage.css";
 
 function GeneralInfoPage() {

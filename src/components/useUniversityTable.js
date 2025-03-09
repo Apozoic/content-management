@@ -1,95 +1,80 @@
-/* useUniversityTable.js */
-/* useUniversityTable.js */
-// hooks/useUniversityTable.js
 import { useState, useEffect, useCallback } from 'react';
 import { useAppData } from '../context/DataContext';
 
 // Константы
 const FIELD_NAMES = ['name', 'location', 'website', 'founded', 'type'];
 
+// Генератор случайных названий университетов
+const generateUniversityName = () => {
+  const names = [
+    "Технический Университет", "Государственный Университет", 
+    "Гуманитарная Академия", "Институт Точных Наук", 
+    "Высшая Школа Экономики", "Юридический Университет", 
+    "Медицинская Академия", "Архитектурный Институт", 
+    "Политехнический Университет", "Академия Управления"
+  ];
+  
+  const randomName = names[Math.floor(Math.random() * names.length)];
+  const randomNumber = Math.floor(Math.random() * 1000) + 1;
+  return `${randomName} №${randomNumber}`;
+};
+
 export function useUniversityTable() {
-const { getUniversities, universities, isLoading } = useAppData();
-const [tableData, setTableData] = useState([]);
-const [editingCell, setEditingCell] = useState(null);
-const [editValue, setEditValue] = useState('');
+  const { getUniversities, universities, isLoading } = useAppData();
+  const [tableData, setTableData] = useState([]);
+  const [editingCell, setEditingCell] = useState(null);
+  const [editValue, setEditValue] = useState('');
 
-// Загрузка данных при монтировании
-useEffect(() => {
-getUniversities();
-}, [getUniversities]);
+  // Загрузка данных
+  useEffect(() => {
+    getUniversities();
+  }, [getUniversities]);
 
-// Обновление таблицы при изменении данных
-useEffect(() => {
-if (!universities) return;
+  // Обновление таблицы при изменении данных
+  useEffect(() => {
+    if (!universities) return;
+    
+    const uniData = universities.map(uni => [
+      uni.name || '',
+      uni.location || '',
+      uni.website || '',
+      uni.founded?.toString() || '',
+      uni.type || ''
+    ]);
+    
+    while (uniData.length < 5) {
+      uniData.push(['', '', '', '', '']);
+    }
+    
+    setTableData(uniData);
+  }, [universities]);
 
-const uniData = universities.map(uni => [
-uni.name || '',
-uni.location || '',
-uni.website || '',
-uni.founded?.toString() || '',
-uni.type || ''
-]);
+  // Функции редактирования
+  const startEditing = useCallback((rowIndex, colIndex) => {
+    if (editingCell) return;
+    setEditingCell({ row: rowIndex, col: colIndex });
+    setEditValue(tableData[rowIndex][colIndex]);
+  }, [editingCell, tableData]);
 
-while (uniData.length < 5) {
-uniData.push(['', '', '', '', '']);
-}
+  const cancelEditing = useCallback(() => {
+    setEditingCell(null);
+    setEditValue('');
+  }, []);
 
-setTableData(uniData);
-}, [universities]);
+  const handleInputChange = useCallback((e) => {
+    setEditValue(e.target.value);
+  }, []);
 
-// Функции редактирования
-const startEditing = useCallback((rowIndex, colIndex) => {
-if (editingCell) return;
-setEditingCell({ row: rowIndex, col: colIndex });
-setEditValue(tableData[rowIndex][colIndex]);
-}, [editingCell, tableData]);
-
-const cancelEditing = useCallback(() => {
-setEditingCell(null);
-setEditValue('');
-}, []);
-
-const handleInputChange = useCallback((e) => {
-setEditValue(e.target.value);
-}, []);
-
-// Создание нового университета напрямую через fetch
-// Создание нового университета напрямую через fetch
-const createNewUniversity = useCallback(async (name) => {
+  // Создание нового университета
+  const createNewUniversity = useCallback(async (name) => {
     try {
-      // Массив интересных названий университетов
-      const randomNames = [
-        "Технический Университет",
-        "Государственный Университет",
-        "Гуманитарная Академия",
-        "Институт Точных Наук",
-        "Высшая Школа Экономики",
-        "Юридический Университет",
-        "Медицинская Академия",
-        "Архитектурный Институт",
-        "Аграрный Университет",
-        "Педагогический Институт",
-        "Университет Искусств",
-        "Политехнический Университет",
-        "Институт Международных Отношений",
-        "Лингвистический Университет",
-        "Академия Управления"
-      ];
-      
-      // Выбираем случайное название и номер для уникальности
-      const randomName = randomNames[Math.floor(Math.random() * randomNames.length)];
-      const randomNumber = Math.floor(Math.random() * 1000) + 1; // Случайное число от 1 до 1000
-      
       const newUniversity = {
-        // НЕ передаём поле id – сервер сам назначит его
-        name: name || `${randomName} №${randomNumber}`,
+        name: name || generateUniversityName(),
         location: '',
         website: '',
         founded: null,
         type: ''
       };
-      
-      console.log(`Создаем новый университет: ${newUniversity.name}`);
       
       const createResponse = await fetch('http://localhost:3001/universities', {
         method: 'POST',
@@ -101,28 +86,18 @@ const createNewUniversity = useCallback(async (name) => {
         throw new Error(`Ошибка создания: ${createResponse.status}`);
       }
       
-      const createdRecord = await createResponse.json();
-      
-      // Обновляем данные через контекст сразу после создания
       await getUniversities();
-      
-      return createdRecord;
+      return await createResponse.json();
     } catch (error) {
       console.error('Ошибка при создании университета:', error);
       throw error;
     }
   }, [getUniversities]);
-  
-  
 
-// Обновление университета напрямую через fetch
-// Обновление университета напрямую через fetch - исправлено
-const updateExistingUniversity = useCallback(async (updatedUniversity) => {
+  // Обновление университета
+  const updateExistingUniversity = useCallback(async (updatedUniversity) => {
     try {
-      // Формируем URL с id, который уже хранится в updatedUniversity,
-      // он должен быть серверным (после создания через POST)
       const updateUrl = `http://localhost:3001/universities/${updatedUniversity.id}`;
-      console.log(`Обновляем университет по URL: ${updateUrl}`);
       
       const updateResponse = await fetch(updateUrl, {
         method: 'PUT',
@@ -134,24 +109,19 @@ const updateExistingUniversity = useCallback(async (updatedUniversity) => {
         throw new Error(`Ошибка обновления: ${updateResponse.status}`);
       }
       
-      await getUniversities(); // Обновляем данные в контексте
+      await getUniversities();
     } catch (error) {
       console.error('Ошибка при обновлении:', error);
     }
   }, [getUniversities]);
-  
 
-
-
-
-
-
-
-// Сохранение изменений
-const saveChanges = useCallback(async () => {
+  // Сохранение изменений
+  const saveChanges = useCallback(async () => {
     if (!editingCell) return;
     
     const { row, col } = editingCell;
+    
+    // Обновляем локальные данные
     const newTableData = [...tableData];
     newTableData[row][col] = editValue;
     setTableData(newTableData);
@@ -162,6 +132,7 @@ const saveChanges = useCallback(async () => {
         const university = universities[row];
         const updatedUniversity = { ...university };
         const field = FIELD_NAMES[col];
+        
         if (field === 'founded') {
           updatedUniversity[field] = editValue ? parseInt(editValue, 10) : null;
         } else {
@@ -181,10 +152,8 @@ const saveChanges = useCallback(async () => {
     setEditValue('');
   }, [editingCell, editValue, tableData, universities, updateExistingUniversity, createNewUniversity]);
 
-  
-  
-// Добавление нового университета
-const addNewUniversity = useCallback(async () => {
+  // Добавление нового университета
+  const addNewUniversity = useCallback(async () => {
     try {
       await createNewUniversity();
     } catch (error) {
@@ -192,15 +161,15 @@ const addNewUniversity = useCallback(async () => {
     }
   }, [createNewUniversity]);
 
-return {
-tableData,
-editingCell,
-editValue,
-isLoading,
-startEditing,
-cancelEditing,
-handleInputChange,
-saveChanges,
-addNewUniversity
-};
+  return {
+    tableData,
+    editingCell,
+    editValue,
+    isLoading,
+    startEditing,
+    cancelEditing,
+    handleInputChange,
+    saveChanges,
+    addNewUniversity
+  };
 }

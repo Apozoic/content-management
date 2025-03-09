@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import NonEditablePage, { Section } from "./NonEditablePage";
-import { getPageVariables, savePageVariables } from "../services/api";
+import { getPageVariables, savePageVariables } from "../services/universityApi";
 import "./ProgrammList.css";
 
 function ProgrammList() {
