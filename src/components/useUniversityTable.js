@@ -1,4 +1,5 @@
 /* useUniversityTable.js */
+/* useUniversityTable.js */
 // hooks/useUniversityTable.js
 import { useState, useEffect, useCallback } from 'react';
 import { useAppData } from '../context/DataContext';
@@ -53,18 +54,42 @@ setEditValue(e.target.value);
 }, []);
 
 // Создание нового университета напрямую через fetch
+// Создание нового университета напрямую через fetch
 const createNewUniversity = useCallback(async (name) => {
     try {
+      // Массив интересных названий университетов
+      const randomNames = [
+        "Технический Университет",
+        "Государственный Университет",
+        "Гуманитарная Академия",
+        "Институт Точных Наук",
+        "Высшая Школа Экономики",
+        "Юридический Университет",
+        "Медицинская Академия",
+        "Архитектурный Институт",
+        "Аграрный Университет",
+        "Педагогический Институт",
+        "Университет Искусств",
+        "Политехнический Университет",
+        "Институт Международных Отношений",
+        "Лингвистический Университет",
+        "Академия Управления"
+      ];
+      
+      // Выбираем случайное название и номер для уникальности
+      const randomName = randomNames[Math.floor(Math.random() * randomNames.length)];
+      const randomNumber = Math.floor(Math.random() * 1000) + 1; // Случайное число от 1 до 1000
+      
       const newUniversity = {
         // НЕ передаём поле id – сервер сам назначит его
-        name: name || `Новый университет`,
+        name: name || `${randomName} №${randomNumber}`,
         location: '',
         website: '',
         founded: null,
         type: ''
       };
       
-      console.log(`Создаем новый университет`);
+      console.log(`Создаем новый университет: ${newUniversity.name}`);
       
       const createResponse = await fetch('http://localhost:3001/universities', {
         method: 'POST',
@@ -87,6 +112,7 @@ const createNewUniversity = useCallback(async (name) => {
       throw error;
     }
   }, [getUniversities]);
+  
   
 
 // Обновление университета напрямую через fetch

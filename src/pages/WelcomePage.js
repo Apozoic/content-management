@@ -1,5 +1,6 @@
 /* WelcomePage.js */
 /* WelcomePage.js */
+/* WelcomePage.js */
 import React from 'react';
 import PageLayout from './PageLayout'; // Проверьте правильность пути
 import { Link } from 'react-router-dom';
