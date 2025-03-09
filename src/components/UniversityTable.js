@@ -1,3 +1,4 @@
+/* UniversityTable.js */
 import React, { useMemo, useCallback } from 'react';
 import { useTable } from 'react-table';
 import { useUniversityTable } from './useUniversityTable';

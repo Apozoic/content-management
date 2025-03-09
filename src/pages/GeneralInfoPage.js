@@ -1,4 +1,5 @@
 /* GeneralInfoPage.js */
+/* GeneralInfoPage.js */
 import React, { useState, useRef, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import NonEditablePage, { Section } from "./NonEditablePage"; // Импортируем Section
